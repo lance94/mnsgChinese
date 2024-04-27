@@ -1,4 +1,10 @@
-1.下载exe程序，运行后别关闭窗口
+1.下载exe程序并运行，运行后别关闭窗口
+
+下载入口见下图
+
+![image](https://github.com/lance94/mnsgChinese/assets/69445676/15c93967-142a-4397-93b2-37fedb5074e6)
+
+
 
 2.下载edge浏览器(其他浏览器懒得测兼容)
 
