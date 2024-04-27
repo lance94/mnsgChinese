@@ -1,4 +1,4 @@
-1.下载exe程序并运行，运行后别关闭窗口
+[gooreplacer.json](https://github.com/lance94/mnsgChinese/files/15138364/gooreplacer.json)1.下载exe程序并运行，运行后别关闭窗口
 
 下载入口见下图
 
@@ -17,17 +17,8 @@
 
 4.点击这个拓展，按我截图的进行设置：
 ![image](https://github.com/lance94/mnsgChinese/assets/69445676/47ab8204-4460-4231-93fa-93abb40ac41f)
-5.点击拓展的配置规则，在重定向一栏新增一条记录
-![image](https://github.com/lance94/mnsgChinese/assets/69445676/a37d6869-de2e-4ad3-ba19-008218c6edb7)
-![image](https://github.com/lance94/mnsgChinese/assets/69445676/afdaeedf-140d-4f94-833a-1518c5eb604a)
-
-直接复制我的数据填上去：
-
-匹配模式：^https:\/\/minasigo-no-shigoto-pd-c-res\.orphans-order\.com\/(\d+(?:\.\d+)*\/[^.]+\/[^.]*\.txt)$
-
-匹配类型：正则表达式
-
-目标地址：http://localhost:8080/$1
+5.点击拓展的配置规则，上传这个配置文件
+[下载配置文件](https://raw.githubusercontent.com/lance94/mnsgChinese/main/gooreplacer.json?raw=true)
 
 6.启动游戏开玩。
 
