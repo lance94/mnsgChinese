@@ -1,0 +1,16 @@
+{
+  "createBy": "http://liujiacai.net/gooreplacer/",
+  "version": "3.13.0",
+  "createAt": "2024/4/27 21:38:50",
+  "redirect-rules": [
+    {
+      "src": "^https:\\/\\/minasigo-no-shigoto-pd-c-res\\.orphans-order\\.com\\/(\\d+(?:\\.\\d+)*\\/[^.]+\\/[^.]*\\.txt)$",
+      "kind": "regexp",
+      "dst": "http://localhost:8080/$1",
+      "enable": true
+    }
+  ],
+  "cancel-rules": [],
+  "request-headers": [],
+  "response-headers": []
+}
