@@ -1,17 +1,23 @@
 on:
   push:
     branches:
-    - main
-    - release/*
+      - main
+      - 'release/*' # 确保release分支模式匹配正确
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-    - name: Build and Deploy
+
+    # 部署到GitHub Pages
+    - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4.3.3
       with:
+        # 指定部署的目标分支
         branch: gh-pages
+        # 指定要部署的文件夹
         folder: docs
+        # 清空目标分支
         clean: true
