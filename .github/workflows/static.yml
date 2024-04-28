@@ -1,45 +1,40 @@
-# Simple workflow for deploying static content from /docs to GitHub Pages
+# Simple workflow for deploying /docs content to GitHub Pages
+
 name: Deploy /docs content to Pages
 
 on:
   push:
-    branches: ["main"]
-  workflow_dispatch:
+    branches: ["main"]  # 触发条件：当推送至main分支时
+  workflow_dispatch:  # 也可以手动触发工作流
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read  # 需要读取仓库内容的权限
+  pages: write   # 需要写入Pages的权限
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true  # 如果有正在进行的部署，则取消它并开始新的部署
 
 jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+      url: ${{ steps.deployment.outputs.page_url }}  # 部署后页面的URL
+
+    runs-on: ubuntu-latest  # 使用Ubuntu最新版本的环境运行
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          # Assuming you want the site to be published at https://<username>.github.io/<repo>
-          # If your repository is under a user or organization page (e.g., https://<username>.github.io), 
-          # then you might not need this step or you may set `publish_dir: docs`
-          publish_dir: ./
-      - name: Prepare Docs
-        run: mv docs/* ./
-        # This step moves all files from the docs folder to the root, assuming you want the site root to reflect the docs content.
-        # Adjust if your structure should be different.
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Now pointing to the root where the docs content has been moved
-          path: './'
+      - name: Checkout repository
+        uses: actions/checkout@v4  # 检出代码到工作目录
+
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3  # 使用一个广泛使用的action来部署到GitHub Pages
+        with:
+          # 使用docs目录作为发布的源
+          publish_dir: ./docs
+          # （可选）如果您的站点需要Jekyll处理，默认是false
+          # jekyll: false
+          # GitHub Pages环境变量，对于个人或组织页通常是GITHUB_TOKEN
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # （可选）是否强制添加CNAME文件到根目录，默认为false
+          # cname: your-custom-domain.com
