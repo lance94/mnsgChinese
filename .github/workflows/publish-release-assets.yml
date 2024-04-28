@@ -3,7 +3,15 @@ name: Publish Release Assets to Page
 on:
   release:
     types: [created]
+  workflow_dispatch:  # 也可以手动触发工作流
+permissions:
+  contents: read  # 需要读取仓库内容的权限
+  pages: write   # 需要写入Pages的权限
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: true  # 如果有正在进行的部署，则取消它并开始新的部署
+  
 jobs:
   publish-assets:
     runs-on: ubuntu-latest
