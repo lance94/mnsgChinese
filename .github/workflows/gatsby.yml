@@ -1,0 +1,54 @@
+name: Publish Release Assets to GH Pages
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy-to-pages:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Download Release Assets
+      id: download_assets
+      run: |
+        # 下载指定的Release资产
+        ASSET_NAMES=("scene.json" "zh.Ys.story.txt")
+        for asset_name in "${ASSET_NAMES[@]}"; do
+          ASSET_URL=$(curl -s https://api.github.com/repos/lance94/mnsgChinese/releases/latest |
+                      jq -r ".assets[] | select(.name==\"$asset_name\") | .browser_download_url")
+          if [ -z "$ASSET_URL" ]; then
+            echo "Asset not found: $asset_name"
+            exit 1
+          fi
+          wget -qO "releases/$asset_name" "$ASSET_URL"
+        done
+
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
+    - name: Update GH Pages
+      working-directory: ./docs
+      run: |
+        # 创建或更新下载链接
+        echo "<h2>Latest Release Assets</h2>" > assets.html
+        echo "<ul>" >> assets.html
+        for asset in ../releases/*; do
+          filename=$(basename "$asset")
+          echo "<li><a href=\"/releases/$filename\">Download $filename</a></li>" >> assets.html
+        done
+        echo "</ul>" >> assets.html
+
+        # 提交更改
+        git add assets.html
+        git commit -m "Update assets links [skip ci]"
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.WORKFLOW }}
+        branch: main
