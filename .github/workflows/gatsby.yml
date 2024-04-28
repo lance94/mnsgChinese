@@ -3,6 +3,7 @@ name: Publish Release Assets to GH Pages
 on:
   release:
     types: [created]
+  workflow_dispatch:  # 添加这一行以支持手动触发
 
 jobs:
   deploy-to-pages:
@@ -50,5 +51,5 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.WORKFLOW }}
-        branch: main
+        github_token: ${{ secrets.GITHUB_TOKEN }}  # 修改这里回正确的密钥引用
+        branch: gh-pages  # 确保推送到GitHub Pages分支
