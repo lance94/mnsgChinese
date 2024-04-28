@@ -16,7 +16,7 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4.3.3
       with:
         # 指定部署的目标分支
-        branch: gh-pages
+        branch: main
         # 指定要部署的文件夹
         folder: docs
         # 清空目标分支
