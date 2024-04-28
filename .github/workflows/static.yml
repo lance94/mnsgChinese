@@ -35,6 +35,6 @@ jobs:
           # （可选）如果您的站点需要Jekyll处理，默认是false
           # jekyll: false
           # GitHub Pages环境变量，对于个人或组织页通常是GITHUB_TOKEN
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.WORKFLOW }}
           # （可选）是否强制添加CNAME文件到根目录，默认为false
           # cname: your-custom-domain.com
